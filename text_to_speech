@@ -1,0 +1,39 @@
+from tkinter import *
+from gtts import gTTS
+from playsound import playsound
+
+#Initialising the window
+
+root = Tk()
+root.geometry('350x300')
+root.configure(bg='ghost white')
+root.title('T2S')
+
+Label(root, text='Text to Speech', font='arial 20 bold', bg='white smoke').pack()
+Label(text='Tanz', font='arial 15 bold', bg='white smoke',width='20').pack(side='bottom')
+
+msg=StringVar()
+Label(root,text='Entry Text',font='arial 15 bold',bg='white smoke').place(x=20,y=60)
+
+entry_field = Entry(root,textvariable=msg, width='50')
+entry_field.place(x=20,y=100)
+
+#funtions for the buttons
+
+def T2S():
+    message = entry_field.get()
+    speech = gTTS(text=message)
+    speech.save('tanz.mp3')
+    playsound('tanz.mp3')
+
+def exit():
+    root.destroy()
+
+def reset():
+    msg.set("")
+
+Button(root, text='play', font='arial 15 bold', command=T2S, width='4').place(x=25, y=140)
+Button(root, text='exit', font='arial 15 bold', command=exit, width='4', bg='red').place(x=100, y=140)
+Button(root, text='reset', font='arial 15 bold', command=reset, width='6').place(x=175, y=140)
+
+root.mainloop()
